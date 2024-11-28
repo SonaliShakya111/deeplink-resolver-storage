@@ -1,0 +1,33 @@
+name: Sync and PR Workflow
+
+on:
+  push:
+    branches:
+      - master  # Trigger the workflow on pushes to the master branch
+
+jobs:
+  sync-and-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: |
+          pip install requests
+
+      # Step 4: Run the Python script
+      - name: Execute sync and PR script
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_PAT }}  # Use the stored token
+        run: |
+          python sync_and_pr.py
