@@ -1,9 +1,12 @@
+import os
 import requests
 import json
 from datetime import datetime
 
 # Configuration
-GITHUB_TOKEN = {TOKEN_PAT}
+GITHUB_TOKEN = os.getenv("TOKEN_PAT")  # Fetch the token from the environment
+if not GITHUB_TOKEN:
+    raise ValueError("GITHUB_TOKEN is not set. Please set the TOKEN_PAT environment variable.")
 FORKED_REPO_OWNER = "SonaliShakya111"
 FORKED_REPO_NAME = "deeplink-resolver-storage"
 UPSTREAM_REPO_OWNER = "ONDC-Official"
